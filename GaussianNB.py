@@ -37,3 +37,14 @@ y_prob = model.predict_proba(X_test)
 prob_df = pd.DataFrame(y_prob, columns=model.classes_)
 print(y_prob)
 
+# 本案例基于 sklearn 提供的乳腺癌数据集（load_breast_cancer），构建朴素贝叶斯分类模型完成二分类任务。整体求解流程如下：
+# 1. 数据处理与划分
+# 数据集包含 569 个样本，每个样本包含 30 个连续特征（如肿瘤半径、纹理等）。分类标签为二分类，0表示恶性（malignant）1表示良性（benign）。采用 train_test_split 对数据进行划分，训练集与测试集划分比例为 = 7 : 3，使用 stratify=y 保证类别分布一致，设置 random_state=42 保证实验可复现。
+# 2. 模型选择
+# 选用高斯朴素贝叶斯（Gaussian Naive Bayes），原因是数据特征为连续型变量且高斯分布假设符合该类医学数据的统计特性。核心假设为各特征条件独立且每个特征在类别条件下服从高斯分布。
+# 3. 模型训练与预测
+# 使用训练集调用 model.fit(X_train, y_train) 进行参数学习，在训练集评估拟合能力，在测试集评估泛化能力，分别进行预测 y_pred_train = model.predict(X_train), y_pred_test = model.predict(X_test)。
+# 4. 性能评估方法
+# 采用准确率（Accuracy） 作为评价指标，Accuracy=正确分类样本数/总样本数。同时输出训练集准确率与测试集准确率。
+# 5. 概率输出分析
+# 使用 predict_proba() 获取每个样本属于各类别的概率分布，y_prob = model.predict_proba(X_test)，可用于分类置信度分析与后续阈值调节或ROC分析。
