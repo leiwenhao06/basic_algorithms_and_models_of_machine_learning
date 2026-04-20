@@ -1,5 +1,3 @@
----
-
 # 一元线性回归 (Simple Linear Regression) 详解
 
 ## 1. 什么是线性回归？
